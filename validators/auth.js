@@ -6,13 +6,13 @@ exports.userSignupValidator = [
   //check("role").not().isEmpty().withMessage("role is required"),
   check("email").isEmail().withMessage("Must be a valid email address"),
   check("password")
-    .isLength({ min: 6 })
+    .isLength({ min: 8 })
     .withMessage("Password must be at least  6 characters long"),
 ];
 
 exports.userSigninValidator = [
   check("email").isEmail().withMessage("Must be a valid email address"),
   check("password")
-    .isLength({ min: 6 })
+    .isLength({ min: 8 })
     .withMessage("Password must be at least  6 characters long"),
 ];
