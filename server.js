@@ -31,6 +31,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 // routes attached with server
 app.use("/api", require("./routes/auth"));
+app.use("/api", require("./routes/publicPost"));
 
 
 //app.use("/api", require("./routes/auth"));
