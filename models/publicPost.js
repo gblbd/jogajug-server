@@ -6,7 +6,7 @@ const PublicPostScheama = new mongoose.Schema(
     postText: {
       type: String,
       trim: true,
-      max: 32,
+      
     },
     //mood realated data wll save here
     activityStatus: {
