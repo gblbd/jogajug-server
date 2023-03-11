@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const { json } = require("body-parser");
 
 exports.signup = (req, res) => {
-  const { name, email, password, profileImage } = req.body;
+  const { name, email, password } = req.body;
   //const profile = req.files.profileImage;
 
   //console.log("file", profile);
@@ -11,31 +11,37 @@ exports.signup = (req, res) => {
   //const encodeedPic = picData.toString("base64");
   //const profileImage = Buffer.from(encodeedPic, "base64");
   //console.log(profileImage);
-  User.findOne({ email }).exec((err, user) => {
-    if (user) {
-      return res.status(400).json({
-        error: "Email is taken",
-      });
-    }
-  });
-  
-
-  let newUser = new User({
-    name,
-    email,
-    profileImage,
-    
-    password,
-  });
-
-  newUser.save((err, success) => {
-    if (err) {
-      return res.status(400).json({ error: err });
-    }
-    res.json({
-      message: "Signup success! Please signin",
+ 
+  try{
+    User.findOne({ email }).exec((err, user) => {
+      if (user) {
+        
+        return res.status(400).json({
+          error: "Email is taken",
+        });
+      }else{
+        let newUser = new User({
+          name,
+          email,
+          password,
+        });
+      
+        newUser.save();
+        res.json({
+      
+          message: "Signup success! Please signin",
+        });
+      }
     });
-  });
+   
+   
+  }catch(error){
+   return res.status(400).json( error );
+  }
+
+
+
+
 };
 
 exports.signin = (req, res) => {
