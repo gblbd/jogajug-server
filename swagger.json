@@ -95,6 +95,80 @@
           }
         }
       }
+    },
+    "/api/user-public-post": {
+      "post": {
+        "tags": ["User Post"],
+        "summary": "user post for newsfeed",
+        "description": "This API accepting  data by from body. so send the data from body. when you will send image or gif data that time convert the image into base64 and then send it through api.It must be anr array of string. The 'taggedUserFriend' will be also a array of id which will be string value ",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "type": "string",
+            "name": "Authorization",
+            "description": "Access Token",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "api for post.",
+
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "postText": {
+                  "type": "string",
+                  "example": "my new post for new media ap"
+                },
+                "activityStatus": {
+                  "type": "string",
+                  "example": "feeling happy"
+                },
+                "taggedUserFriend": {
+                  "type": "array",
+                  "example": [
+                    "6409a085240a9a1ea73e783e",
+                    "6409d154ad423af4416aaea5"
+                  ]
+                },
+                "postLocation": {
+                  "type": "string",
+                  "example": "dhaka"
+                },
+                "shareLink": {
+                  "type": "string",
+                  "example": "www.klink.com"
+                },
+                "newsfeedStatus": {
+                  "type": "string",
+                  "example": "private"
+                },
+                "postImageList": {
+                  "type": "array"
+                },
+                "postGifImage": {
+                  "type": "array"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   }
 }
