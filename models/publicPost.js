@@ -6,17 +6,23 @@ const PublicPostScheama = new mongoose.Schema(
     postText: {
       type: String,
       trim: true,
-      
     },
     //mood realated data wll save here
     activityStatus: {
       type: String,
       trim: true,
     },
-    taggedUserFriend: {
-      type: mongoose.Types.ObjectId,
-      ref: "User",
-    },
+    taggedUserFriend: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    /*  taggedUserFriend: [
+      {
+        userFriendId: { type: mongoose.Types.ObjectId, ref: "User" },
+      },
+    ], */
     postLocation: {
       type: String,
       trim: true,
@@ -37,15 +43,14 @@ const PublicPostScheama = new mongoose.Schema(
       },
     ],
     postGifImage: [
-        {
-          data: Buffer,
-          type: String,
-        },
-      ],
+      {
+        data: Buffer,
+        type: String,
+      },
+    ],
     /* postImage: {
       type: String,
     }, */
-    
   },
   { timestamps: true }
 );
