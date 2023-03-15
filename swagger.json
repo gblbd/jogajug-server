@@ -206,6 +206,27 @@
           }
         }
       }
+    },
+    "/api/read-weather-report": {
+      "get": {
+        "tags": ["Weather"],
+        "summary": "get details of user",
+        "description": "this api will provide details of todays weather in json format. ",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   }
 }
