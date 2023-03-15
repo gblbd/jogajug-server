@@ -18,12 +18,9 @@ exports.readWeatherDetails = async (req, res) => {
         const weather = response.data.weather[0].description;
         const temperature = response.data.main.temp;
         const humidityData = response.data.main.humidity;
-        console.log(
-            `Current weather in ${CITY_NAME}: ${weather}, Temperature: ${temperature}K , Humidity: ${humidityData}`,
-        );
 
         console.log(response);
-        // just ajker weather report dhekasse
+        // just ajker weather report dhekasse.Temp in kelvin, not Farenheight
         return res.json({ weather, temperature, humidityData });
     } catch (err) {
         return res.json(err);
