@@ -96,7 +96,7 @@
         }
       }
     },
-    "/api/user-details/:id": {
+    "/api/user-details/${id}": {
       "get": {
         "tags": ["Auth"],
         "summary": "get details of user",
@@ -112,7 +112,7 @@
             "required": true
           },
           {
-            "in": "query",
+            "in": "params",
 
             "name": "id",
             "description": "enter user id.",
