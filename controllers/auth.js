@@ -117,3 +117,20 @@ exports.userUpdateData = async (req, res) => {
         email,
     });
 };
+// api for chat
+
+exports.getUsersForMessage = async (req, res) => {
+    try {
+        console.log(req.ID);
+        const queryData = req.query.search
+            ? {
+                  $or: [{ name: { $regex: req.query.search, $options: 'i' } }],
+              }
+            : {};
+        console.log(queryData);
+        const users = await User.find(queryData).find({ _id: { $ne: req.ID } });
+        res.json(users);
+    } catch (err) {
+        res.json(err);
+    }
+};

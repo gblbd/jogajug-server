@@ -96,11 +96,11 @@
         }
       }
     },
-    "/api/user-details/${id}": {
+    "/api/user-details/641189266ffe19f967c461a1": {
       "get": {
         "tags": ["Auth"],
         "summary": "get details of user",
-        "description": "this api wll provide details of user by send id as parameter. ",
+        "description": "this api will provide details of user by send id as parameter.in the api there is a user id. you will set the id of the user dynamically. it will give you the data ",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -116,6 +116,80 @@
 
             "name": "id",
             "description": "enter user id.",
+
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/user-list": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "get details of user",
+        "description": "this api will provide all user data list. ",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "type": "string",
+            "name": "Authorization",
+            "description": "Access Token",
+            "required": true
+          },
+          {
+            "in": "params",
+
+            "name": "id",
+            "description": "enter user id.",
+
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/get-users-list-for-message?search=j": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "get user list excpet logedin user",
+        "description": "this api will provide all user data list by send query parameter as data. you will send query parameter like this /api/get-users-list-for-message?search=${dynamic-variable name}. ",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "type": "string",
+            "name": "Authorization",
+            "description": "Access Token",
+            "required": true
+          },
+          {
+            "in": "query",
+
+            "name": "query",
+            "description": "enter user name and email ",
 
             "required": true
           }
