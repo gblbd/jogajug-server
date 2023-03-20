@@ -27,8 +27,9 @@ exports.authenticate = (req, res, next) => {
         if (err) {
             try {
                 const vrfy = jsonwebtoken.verify(token, process.env.JWT_SECRET);
-                // console.log('Ver', vrfy);
+
                 req.ID = vrfy.id;
+
                 // console.log(`your id is ${req.ID}`);
                 next();
             } catch (_) {

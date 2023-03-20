@@ -301,6 +301,130 @@
           }
         }
       }
+    },
+    "/api/user-chat-access": {
+      "post": {
+        "tags": ["Chat Application API"],
+        "summary": "chat access",
+        "description": "this api will receive user id from frontend body in json format. And will create chat with that user id.<br />like you will click on a user and you will be able to chat with him by sending the id in the server as json data:",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "type": "string",
+            "name": "Authorization",
+            "description": "Access Token",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "user id need to send from body as object data.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "string",
+                  "example": "640c56d5875e12ae58fdd1cd"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/fetch-chat-data": {
+      "get": {
+        "tags": ["Chat Application API"],
+        "summary": "chat fetch",
+        "description": "this api will give you chat data from db. like me and sumon chatted before. this api will give me that data:.Also i have chatted in  a group. it will also show that data.It will show all the chat history",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "type": "string",
+            "name": "Authorization",
+            "description": "Access Token",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/create-group-chat": {
+      "post": {
+        "tags": ["Chat Application API"],
+        "summary": "chat group create",
+        "description": "for this api you need to send `name, users` as an object data as json format.ussers list will be an array data.your form will make a json object data in a variable. <br /> this api needs at least 2 users to create a group. who will create group will be the admin of the group",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "type": "string",
+            "name": "Authorization",
+            "description": "Access Token",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "for this api you need to send `name, users` as an object data as json format.ussers list will be an array data.your form will make a json object data in a variable.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "test-mygbl-group"
+                },
+                "users": {
+                  "type": "string",
+                  "example": [
+                    "6409d154ad423af4416aaea5",
+                    "640bfe8dec5075824497f423"
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   }
 }
