@@ -78,8 +78,7 @@ exports.fetchChatData = async (req, res) => {
                 res.status(200).send(results);
             });
     } catch (error) {
-        res.status(400);
-        throw new Error(error.message);
+        return res.status(400).json(error);
     }
 };
 // create group chat
@@ -115,7 +114,101 @@ exports.createGroupChat = async (req, res) => {
 
         res.status(200).json(fullGroupChat);
     } catch (error) {
-        res.status(400);
-        throw new Error(error.message);
+        return res.status(400).json(error);
+    }
+};
+// rename the group chat name
+exports.renameGroupChatName = async (req, res) => {
+    try {
+        const { chatId, chatName } = req.body;
+
+        const updatedChat = await ChatApplicationData.findByIdAndUpdate(
+            chatId,
+            {
+                chatName,
+            },
+            {
+                new: true,
+            }
+        )
+            .populate({
+                path: 'users',
+                select: 'name email',
+            })
+            .populate('groupAdmin', '-hashed_password -salt');
+
+        if (!updatedChat) {
+            res.status(404);
+            throw new Error('Chat Not Found');
+        } else {
+            res.json(updatedChat);
+        }
+    } catch (error) {
+        return res.status(400).json(error);
+    }
+};
+// member add to the goup
+exports.addMemberToGroup = async (req, res) => {
+    try {
+        const { chatId, userId } = req.body;
+
+        // check if the requester is admin
+
+        const added = await ChatApplicationData.findByIdAndUpdate(
+            chatId,
+            {
+                $push: { users: userId },
+            },
+            {
+                new: true,
+            }
+        )
+            .populate({
+                path: 'users',
+                select: 'name email',
+            })
+            .populate('groupAdmin', '-hashed_password -salt');
+
+        if (!added) {
+            res.status(404);
+            throw new Error('Chat Not Found');
+        } else {
+            res.json(added);
+        }
+    } catch (error) {
+        return res.status(400).json(error);
+    }
+};
+// member remove from group
+
+exports.removeMemberFromGroup = async (req, res) => {
+    try {
+        const { chatId, userId } = req.body;
+
+        // check if the requester is admin
+
+        const removed = await ChatApplicationData.findByIdAndUpdate(
+            chatId,
+            {
+                $pull: { users: userId },
+            },
+            {
+                new: true,
+            }
+        )
+            .populate({
+                path: 'users',
+                select: 'name email',
+            })
+            .populate('groupAdmin', '-hashed_password -salt');
+
+        if (!removed) {
+            res.status(404);
+            throw new Error('Chat Not Found');
+        } else {
+            res.json(removed);
+        }
+    } catch (error) {
+        return res.status(400).json(error);
     }
 };
