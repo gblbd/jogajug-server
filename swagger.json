@@ -96,11 +96,85 @@
         }
       }
     },
-    "/api/user-details/:id": {
+    "/api/user-details/641189266ffe19f967c461a1": {
       "get": {
         "tags": ["Auth"],
         "summary": "get details of user",
-        "description": "this api wll provide details of user by send id as parameter. ",
+        "description": "this api will provide details of user by send id as parameter.in the api there is a user id. you will set the id of the user dynamically. it will give you the data ",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "type": "string",
+            "name": "Authorization",
+            "description": "Access Token",
+            "required": true
+          },
+          {
+            "in": "params",
+
+            "name": "id",
+            "description": "enter user id.",
+
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/user-list": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "get details of user",
+        "description": "this api will provide all user data list. ",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "type": "string",
+            "name": "Authorization",
+            "description": "Access Token",
+            "required": true
+          },
+          {
+            "in": "params",
+
+            "name": "id",
+            "description": "enter user id.",
+
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/get-users-list-for-message?search=j": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "get user list excpet logedin user",
+        "description": "this api will provide all user data list by send query parameter as data. you will send query parameter like this /api/get-users-list-for-message?search=${dynamic-variable name}. ",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -114,8 +188,8 @@
           {
             "in": "query",
 
-            "name": "id",
-            "description": "enter user id.",
+            "name": "query",
+            "description": "enter user name and email ",
 
             "required": true
           }
@@ -189,6 +263,295 @@
                 },
                 "postGifImage": {
                   "type": "array"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/read-weather-report": {
+      "get": {
+        "tags": ["Weather"],
+        "summary": "get details of user",
+        "description": "this api will provide details of todays weather in json format. ",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/user-chat-access": {
+      "post": {
+        "tags": ["Chat Application API"],
+        "summary": "chat access",
+        "description": "this api will receive user id from frontend body in json format. And will create chat with that  particular user id.<br />like you will click on a user and you will be able to chat with him by sending the id in the server as json data:",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "type": "string",
+            "name": "Authorization",
+            "description": "Access Token",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "user id need to send from body as object data.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "string",
+                  "example": "640c56d5875e12ae58fdd1cd"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/fetch-chat-data": {
+      "get": {
+        "tags": ["Chat Application API"],
+        "summary": "chat fetch",
+        "description": "this api will give you chat data from db. like me and sumon chatted before. this api will give me that data:.Also i have chatted in  a group. it will also show that group chat data.It will show all the chat history",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "type": "string",
+            "name": "Authorization",
+            "description": "Access Token",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/create-group-chat": {
+      "post": {
+        "tags": ["Chat Application API"],
+        "summary": "chat group create",
+        "description": "for this api you need to send `name, users` as an object data as json format.ussers list will be an array data.your form will make a json object data in a variable. <br /> this api needs at least 2 users to create a group. who will create group will be the admin of the group",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "type": "string",
+            "name": "Authorization",
+            "description": "Access Token",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "for this api you need to send `name, users` as an object data as json format.ussers list will be an array data.your form will make a json object data in a variable.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "test-mygbl-group"
+                },
+                "users": {
+                  "type": "string",
+                  "example": [
+                    "6409d154ad423af4416aaea5",
+                    "640bfe8dec5075824497f423"
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/rename-group-chat-name": {
+      "put": {
+        "tags": ["Chat Application API"],
+        "summary": "rename group chat name",
+        "description": "This api will receive `chatId & chatName` from frontend as json object data. <br /> like if you rename with thegroup then send the chat id and chatname data from body from frontend ",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "type": "string",
+            "name": "Authorization",
+            "description": "Access Token",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": " `chatId`, `chatName` needs to send from body of the client side as json object.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "chatId": {
+                  "type": "string",
+                  "example": "641925ad9ccf5e141c15136c"
+                },
+                "chatName": {
+                  "type": "string",
+                  "example": "chat-imran-2"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/add-member-to-group": {
+      "put": {
+        "tags": ["Chat Application API"],
+        "summary": "Add member to the group",
+        "description": "Suppose you are admin in a group.So you can add a user as a member of the group so that he can chat.<br /> Api will receive `chatId` and `userId` from the frontend as json object data. ",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "type": "string",
+            "name": "Authorization",
+            "description": "Access Token",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": " `chatId`, `userId` needs to send from body of the client side as json object.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "chatId": {
+                  "type": "string",
+                  "example": "641925ad9ccf5e141c15136c"
+                },
+                "userId": {
+                  "type": "string",
+                  "example": "640c56d5875e12ae58fdd1cd"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/remove-member-from-group": {
+      "put": {
+        "tags": ["Chat Application API"],
+        "summary": "Remove member from your group",
+        "description": "Suppose you are admin in a group.So you can remove a user  from the group so that he can not chat.<br /> Api will receive `chatId` and `userId` from the frontend as json object data. ",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "type": "string",
+            "name": "Authorization",
+            "description": "Access Token",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": " `chatId`, `userId` needs to send from body of the client side as json object.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "chatId": {
+                  "type": "string",
+                  "example": "641925ad9ccf5e141c15136c"
+                },
+                "userId": {
+                  "type": "string",
+                  "example": "640c56d5875e12ae58fdd1cd"
                 }
               }
             }
