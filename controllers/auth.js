@@ -122,14 +122,19 @@ exports.userUpdateData = async (req, res) => {
 exports.getUsersForMessage = async (req, res) => {
     try {
         console.log(req.ID);
+        console.log('ser', req.query.search);
         const queryData = req.query.search
             ? {
                   $or: [{ name: { $regex: req.query.search, $options: 'i' } }],
               }
             : {};
         console.log(queryData);
-        const users = await User.find(queryData).find({ _id: { $ne: req.ID } });
-        res.json(users);
+        if (req.query.search !== '') {
+            const users = await User.find(queryData).find({ _id: { $ne: req.ID } });
+            res.json(users);
+        } else {
+            res.json('please enter name');
+        }
     } catch (err) {
         res.json(err);
     }
