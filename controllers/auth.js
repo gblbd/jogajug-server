@@ -68,7 +68,7 @@ exports.signin = (req, res) => {
 // show user list
 exports.userListData = async (req, res) => {
     try {
-        const test = await User.find({});
+        const test = await User.find({}, '-hashed_password -salt');
 
         res.json(test);
     } catch (error) {

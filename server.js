@@ -34,6 +34,7 @@ app.use('/api', require('./routes/auth'));
 app.use('/api', require('./routes/publicPost'));
 app.use('/api', require('./routes/weatherReport'));
 app.use('/api', require('./routes/chatApplicationData'));
+app.use('/api', require('./routes/messageSend'));
 
 // app.use("/api", require("./routes/auth"));
 
