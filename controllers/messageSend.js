@@ -4,7 +4,7 @@ const User = require('../models/user');
 
 exports.sendMessageToUser = async (req, res) => {
     const { content, chatId } = req.body;
-    console.log(chatId);
+
     if (!content || !chatId) {
         console.log('Invalid data passed into request');
         return res.sendStatus(400);
@@ -13,21 +13,20 @@ exports.sendMessageToUser = async (req, res) => {
     const newMessage = {
         sender: req.ID,
         content,
-        chat: chatId,
+        chatApplicationInfo: chatId,
     };
 
     try {
-        const d = await ChatApplicationData.findById(chatId).exec();
-        console.log('d', d);
         let message = await MessageData.create(newMessage);
 
         message = await message.populate('sender', 'name');
         message = await message.populate('chatApplicationInfo');
+
         message = await User.populate(message, {
             path: 'chatApplicationInfo.users',
             select: 'name email',
         });
-        console.log('mes', message);
+
         await ChatApplicationData.findByIdAndUpdate(req.body.chatId, { latestMessage: message });
 
         res.json(message);
