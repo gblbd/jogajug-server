@@ -39,7 +39,7 @@ exports.sendMessageToUser = async (req, res) => {
 
 exports.fetchMessageForAChat = async (req, res) => {
     try {
-        const messages = await MessageData.find({ chat: req.params.chatId })
+        const messages = await MessageData.find({ chatApplicationInfo: req.params.chatId })
             .populate('sender', 'name  email')
             .populate('chatApplicationInfo');
         res.json(messages);
