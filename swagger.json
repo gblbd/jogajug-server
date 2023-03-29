@@ -96,7 +96,7 @@
         }
       }
     },
-    "/api/user-details/641189266ffe19f967c461a1": {
+    "/api/user-details/:id": {
       "get": {
         "tags": ["Auth"],
         "summary": "get details of user",
@@ -113,9 +113,9 @@
           },
           {
             "in": "params",
-
+            "type": "string",
             "name": "id",
-            "description": "enter user id.",
+            "description": "641189266ffe19f967c461a1",
 
             "required": true
           }
@@ -136,7 +136,7 @@
     "/api/user-list": {
       "get": {
         "tags": ["Auth"],
-        "summary": "get details of user",
+        "summary": "get all user from db",
         "description": "this api will provide all user data list. ",
         "consumes": ["application/json"],
         "produces": ["application/json"],
@@ -146,14 +146,6 @@
             "type": "string",
             "name": "Authorization",
             "description": "Access Token",
-            "required": true
-          },
-          {
-            "in": "params",
-
-            "name": "id",
-            "description": "enter user id.",
-
             "required": true
           }
         ],
@@ -172,9 +164,9 @@
     },
     "/api/get-users-list-for-message?search=j": {
       "get": {
-        "tags": ["Auth"],
-        "summary": "get user list excpet logedin user",
-        "description": "this api will provide all user data list by send query parameter as data. you will send query parameter like this /api/get-users-list-for-message?search=${dynamic-variable name}. ",
+        "tags": ["Chat Application API"],
+        "summary": "get user list excpet login user",
+        "description": "this api will provide all user data list by send query parameter as data. you will send query parameter like this /api/get-users-list-for-message?search=${dynamic-variable name}. it will provide data who has name with `j`",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -284,7 +276,7 @@
     "/api/read-weather-report": {
       "get": {
         "tags": ["Weather"],
-        "summary": "get details of user",
+        "summary": "get details of weathger",
         "description": "this api will provide details of todays weather in json format. ",
         "consumes": ["application/json"],
         "produces": ["application/json"],
@@ -555,6 +547,91 @@
                 }
               }
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/send-message-to-user": {
+      "post": {
+        "tags": ["Chat Application API"],
+        "summary": "message send to a user or in group chat",
+        "description": " Api will receive `chatId` and `content` from the frontend as json object data from body. it will send data for a specific chat id, so you must send `chatId` from the frontend with `content`. ",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "type": "string",
+            "name": "Authorization",
+            "description": "Access Token",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": " Api will receive `chatId` and `content` from the frontend as json object data from body.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "type": "string",
+                  "example": "hello how are you!"
+                },
+                "chatId": {
+                  "type": "string",
+                  "example": "641925ad9ccf5e141c15136c"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/fetch-message-for-chat/:chatId": {
+      "get": {
+        "tags": ["Chat Application API"],
+        "summary": "get all message for a specific selected chat",
+        "description": "this api will provide all messages for a specific chat. it will take `chatId` as params in url, for give you all message  ",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "type": "string",
+            "name": "Authorization",
+            "description": "Access Token",
+            "required": true
+          },
+          {
+            "in": "params",
+            "type": "string",
+            "name": "chatId",
+            "description": "641c3a69fbf6731f3dce5e12",
+
+            "required": true
           }
         ],
         "responses": {
