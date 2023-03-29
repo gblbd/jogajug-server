@@ -71,11 +71,11 @@ exports.fetchChatData = async (req, res) => {
 
             .sort({ updatedAt: -1 })
             .then(async (results) => {
-                results = await User.populate(results, {
+                const result = await User.populate(results, {
                     path: 'latestMessage.sender',
                     select: 'name email',
                 });
-                res.status(200).send(results);
+                res.status(200).send(result);
             });
     } catch (error) {
         return res.status(400).json(error);
