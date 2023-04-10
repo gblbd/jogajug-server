@@ -47,12 +47,12 @@ const PublicPostScheama = new mongoose.Schema(
             type: String,
             trim: true,
         },
-        shareLink: {
+        /*  shareLink: {
             type: String,
             trim: true,
-        },
+        }, */
         // public or private or friends mode post
-        newsfeedStatus: {
+        postAudience: {
             type: String,
             trim: true,
         },
@@ -62,12 +62,12 @@ const PublicPostScheama = new mongoose.Schema(
                 type: String,
             },
         ],
-        postGifImage: [
+        /* postGifImage: [
             {
                 data: Buffer,
                 type: String,
             },
-        ],
+        ], */
         /* postImage: {
       type: String,
     }, */
