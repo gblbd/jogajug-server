@@ -59,3 +59,12 @@ exports.publicPostData = async (req, res) => {
         res.json({ message: error });
     }
 };
+// show post status
+exports.publicPostDataShow = async (req, res) => {
+    const result = await PublicPost.find({}).populate({
+        path: 'postedByUser',
+
+        select: 'name profileImage',
+    });
+    res.json(result);
+};

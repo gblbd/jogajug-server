@@ -20,6 +20,11 @@ const PublicPostScheama = new mongoose.Schema(
             type: String,
             trim: true,
         },
+        postedByUser: {
+            type: mongoose.Types.ObjectId,
+            ref: 'User',
+        },
+
         taggedUserFriend: [
             {
                 type: mongoose.Types.ObjectId,
