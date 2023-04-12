@@ -9,7 +9,7 @@ exports.publicPostData = async (req, res) => {
         activityStatus,
         taggedUserFriend,
         postLocation,
-        shareLink,
+
         postAudience,
         postImageList,
     } = req.body;
@@ -42,7 +42,7 @@ exports.publicPostData = async (req, res) => {
             activityStatus,
             taggedUserFriend,
             postLocation,
-            shareLink,
+
             postAudience,
             postImageList: imageUrls,
         });
@@ -60,11 +60,30 @@ exports.publicPostData = async (req, res) => {
     }
 };
 // show post status
-exports.publicPostDataShow = async (req, res) => {
+/* exports.publicPostDataShow = async (req, res) => {
     const result = await PublicPost.find({}).populate({
         path: 'postedByUser',
 
         select: 'name profileImage',
     });
     res.json(result);
+}; */
+exports.publicPostDataShow = async (req, res) => {
+    const { page, limit } = req.query;
+    const skip = (page - 1) * limit;
+
+    try {
+        const result = await PublicPost.find({})
+            .populate({
+                path: 'postedByUser',
+                select: 'name profileImage',
+            })
+            .skip(skip)
+            .limit(limit);
+
+        res.json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
 };
