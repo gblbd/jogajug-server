@@ -203,7 +203,7 @@
       "post": {
         "tags": ["User Post"],
         "summary": "user post for newsfeed",
-        "description": "This API accepting  data from body. so send the data from body. when you will send image or gif data that time convert the image into base64 and then send it through api.It must be anr array of string. The 'taggedUserFriend' will be also a array of id which will be string value ",
+        "description": "This API accepting  data from body. so send the data from body. when you will send image  data that time convert the image into base64 and then send it through api.It must be anr array of string.  ",
         "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
@@ -217,7 +217,7 @@
           {
             "in": "body",
             "name": "body",
-            "description": "api for post.",
+            "description": "api for post  for newsfeed.",
 
             "required": true,
             "schema": {
@@ -231,6 +231,7 @@
                   "type": "string",
                   "example": "feeling happy"
                 },
+
                 "taggedUserFriend": {
                   "type": "array",
                   "example": [
@@ -242,22 +243,45 @@
                   "type": "string",
                   "example": "dhaka"
                 },
-                "shareLink": {
+
+                "postAudience": {
                   "type": "string",
-                  "example": "www.klink.com"
-                },
-                "newsfeedStatus": {
-                  "type": "string",
-                  "example": "private"
+                  "example": "Public"
                 },
                 "postImageList": {
-                  "type": "array"
-                },
-                "postGifImage": {
                   "type": "array"
                 }
               }
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/public-post-data-show?page=1&limit=5": {
+      "get": {
+        "tags": ["User Post"],
+        "summary": "user post get for newsfeed",
+        "description": "This API  will give you data of all user for newsfeed. You need to send `page` and `limit` when you will call the api. this `page` is number of page and  `limit` means how many data you want to see for each click in `load more` button",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "type": "string",
+            "name": "Authorization",
+            "description": "Access Token",
+            "required": true
           }
         ],
         "responses": {
