@@ -10,6 +10,7 @@
   "rules": {
     "no-console": 0,
     "no-underscore-dangle": "off",
+    "no-await-in-loop": "off",
     "comma-dangle": "off",
     "indent": 0,
     "linebreak-style": 0,
